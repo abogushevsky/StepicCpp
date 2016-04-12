@@ -3,8 +3,11 @@
 class StringPointer {
 private:
   std::string *pointer;
+  bool isNullPtr = false;
   void ensurePtr() {
     if (!pointer) {
+      isNullPtr = true;
+      std::cout << "Creating empty str..." << std::endl;
       pointer = new std::string();
     }
   }
@@ -12,9 +15,11 @@ private:
 public:
   StringPointer(std::string *p): pointer(p) {};
   ~StringPointer() {
-    if (pointer) {
+    std::cout << "destructor" << std::endl;
+    if (isNullPtr && pointer) {
       delete(pointer);
     }
+    std::cout << "after destructor" << std::endl;
   }
   operator std::string*() { 
     ensurePtr();
