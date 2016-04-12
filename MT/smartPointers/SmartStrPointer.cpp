@@ -1,6 +1,6 @@
 #include <iostream>
 
-class SmartStrPointer {
+class StringPointer {
 private:
   std::string *pointer;
   void ensurePtr() {
@@ -10,8 +10,8 @@ private:
   }
     
 public:
-  SmartStrPointer(std::string *p): pointer(p) {};
-  ~SmartStrPointer() {
+  StringPointer(std::string *p): pointer(p) {};
+  ~StringPointer() {
     if (pointer) {
       delete(pointer);
     }
@@ -27,8 +27,14 @@ public:
 };
 
 int main(int argc, char **argv) {
-  SmartStrPointer ssp(new std::string("test"));
-  SmartStrPointer nsp(NULL);
-  std::cout << "Smart ptr: "<< *ssp << std::endl << "NULL ptr: " << *nsp  << std::endl;
+  std::string s1 = "Hello, world!";
+  
+  StringPointer sp1(&s1);
+  StringPointer sp2(NULL);
+
+  std::cout << sp1->length() << std::endl;
+  std::cout << *sp1 << std::endl;
+  std::cout << sp2->length() << std::endl;
+  std::cout << *sp2 << std::endl;
   return 0;
 }
