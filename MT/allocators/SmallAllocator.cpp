@@ -12,7 +12,6 @@ public:
         void *Alloc(unsigned int Size) {
 		if (offset + sizeof(int) + 1 >= SZ) return NULL;
 		*(Memory + offset) = '1'; //set mark of occupied block
-
 		int *sz = (int *) (Memory + (offset + 1)); //1 is occupied mark block
 		*sz = Size;
 		std::cout << "Allocating size: " << *sz << std::endl;		
@@ -29,9 +28,9 @@ public:
         void Free(void *Pointer) {
 		int sz = *((int *) Pointer - 1); //get the allocated size value
 		std::cout << "Object size is: " << sz << std::endl;
-		sz += sizeof(int) + 1; //sum with header (size value + occupied mark)
-		char *ptr = ((char *) Pointer) - sz;
-		while(ptr != Pointer) {
+
+		char *ptr = ((char *) Pointer) - (sz + sizeof(int) + 1); //sum of sz and header (size value + occupied mark)
+		while(ptr != ((char *)Pointer + sz)) {
 			*ptr = '\0';
 			ptr++;
 		}
