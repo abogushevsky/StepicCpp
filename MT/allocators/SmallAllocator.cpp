@@ -23,10 +23,18 @@ public:
 		offset += Size;
 		return res;
 	};
+
         void *ReAlloc(void *Pointer, unsigned int Size) {};
+
         void Free(void *Pointer) {
-		int *sz = (int *) Pointer - 1;
-		std::cout << "Object size is: " << *sz << std::endl;
+		int sz = *((int *) Pointer - 1); //get the allocated size value
+		std::cout << "Object size is: " << sz << std::endl;
+		sz += sizeof(int) + 1; //sum with header (size value + occupied mark)
+		char *ptr = ((char *) Pointer) - sz;
+		while(ptr != Pointer) {
+			*ptr = '\0';
+			ptr++;
+		}
 	};
 };
 
