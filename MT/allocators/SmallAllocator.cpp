@@ -8,6 +8,12 @@ private:
         char Memory[SZ];
 	int offset = 0;
 	char *cp; //current offset pointer
+
+	int getSize(void *Pointer) const {
+		int sz = *((int *) Pointer - 1); //get the allocated size value
+	        std::cout << "Object size is: " << sz << std::endl;
+		return sz;
+	};
 public:
         void *Alloc(unsigned int Size) {
 		if (offset + sizeof(int) + 1 >= SZ) return NULL;
@@ -23,12 +29,13 @@ public:
 		return res;
 	};
 
-        void *ReAlloc(void *Pointer, unsigned int Size) {};
+        void *ReAlloc(void *Pointer, unsigned int Size) {
+		int sz = getSize(Pointer);
+		
+	};
 
         void Free(void *Pointer) {
-		int sz = *((int *) Pointer - 1); //get the allocated size value
-		std::cout << "Object size is: " << sz << std::endl;
-
+		int sz = getSize(Pointer);
 		char *ptr = ((char *) Pointer) - (sz + sizeof(int) + 1); //sum of sz and header (size value + occupied mark)
 		while(ptr != ((char *)Pointer + sz)) {
 			*ptr = '\0';
