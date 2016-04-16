@@ -16,14 +16,13 @@ private:
 	};
 public:
         void *Alloc(unsigned int Size) {
-		if (offset + sizeof(int) + 1 >= SZ) return NULL;
+		if (offset + sizeof(int) + 1 + Size >= SZ) return NULL;
 		*(Memory + offset) = '1'; //set mark of occupied block
 		int *sz = (int *) (Memory + (offset + 1)); //1 is occupied mark block
 		*sz = Size;
 		std::cout << "Allocating size: " << *sz << std::endl;		
 		
 		offset += sizeof(int) + 1; //header offset added
-		if (offset + Size >= SZ) return NULL;
 		void *res = Memory + offset;
 		offset += Size;
 		return res;
@@ -31,7 +30,7 @@ public:
 
         void *ReAlloc(void *Pointer, unsigned int Size) {
 		int sz = getSize(Pointer);
-		
+		return NULL; //temp
 	};
 
         void Free(void *Pointer) {
