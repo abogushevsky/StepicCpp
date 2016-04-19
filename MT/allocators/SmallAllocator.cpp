@@ -30,6 +30,8 @@ public:
 
         void *ReAlloc(void *Pointer, unsigned int Size) {
 		int sz = getSize(Pointer);
+		//TODO: Move header, size & data to the current offset position		
+		//TODO: Free current allocated area
 		return NULL; //temp
 	};
 
