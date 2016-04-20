@@ -9,11 +9,15 @@ private:
 	int offset = 0;
 	char *cp; //current offset pointer
 
-	int getSize(void *Pointer) const {
-		int sz = *((int *) Pointer - 1); //get the allocated size value
+	int getSize(void *pointer) const {
+		int sz = *((int *) pointer - 1); //get the allocated size value
 	        std::cout << "Object size is: " << sz << std::endl;
 		return sz;
 	};
+	
+	char* getAllocatedObjectStart(void *pointer, int sz) {
+		return ((char *) pointer) - (sz + sizeof(int) + 1);
+	}
 public:
         void *Alloc(unsigned int Size) {
 		if (offset + sizeof(int) + 1 + Size >= SZ) return NULL;
@@ -37,7 +41,7 @@ public:
 
         void Free(void *Pointer) {
 		int sz = getSize(Pointer);
-		char *ptr = ((char *) Pointer) - (sz + sizeof(int) + 1); //sum of sz and header (size value + occupied mark)
+		char *ptr = getAllocatedObjectStart(Pointer, sz); //sum of sz and header (size value + occupied mark)
 		while(ptr != ((char *)Pointer + sz)) {
 			*ptr = '\0';
 			ptr++;
