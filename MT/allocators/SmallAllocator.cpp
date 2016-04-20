@@ -37,6 +37,7 @@ public:
 		char *start = getAllocObjStart(Pointer, sz);
 		//TODO: Move header, size & data to the current offset position		
 		//TODO: Free current allocated area
+		char *end = start + sz;
 		return NULL; //temp
 	};
 
