@@ -34,10 +34,17 @@ public:
 
         void *ReAlloc(void *Pointer, unsigned int Size) {
 		int sz = getSize(Pointer);
+		if (offset + sizeof(int) + 1 + sz >= SZ) return NULL;
 		char *start = getAllocObjStart(Pointer, sz);
 		//TODO: Move header, size & data to the current offset position		
 		//TODO: Free current allocated area
 		char *end = start + sz;
+		while (start != end) {
+			char *target = Memory + offset;
+			*target = *start;
+			start++;
+			offset++;
+		}
 		return NULL; //temp
 	};
 
