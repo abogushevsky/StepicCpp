@@ -15,7 +15,7 @@ private:
 		return sz;
 	};
 	
-	char* getAllocatedObjectStart(void *pointer, int sz) {
+	char* getAllocObjStart(void *pointer, int sz) {
 		return ((char *) pointer) - (sz + sizeof(int) + 1);
 	}
 public:
@@ -34,6 +34,7 @@ public:
 
         void *ReAlloc(void *Pointer, unsigned int Size) {
 		int sz = getSize(Pointer);
+		char *start = getAllocObjStart(Pointer, sz);
 		//TODO: Move header, size & data to the current offset position		
 		//TODO: Free current allocated area
 		return NULL; //temp
@@ -41,7 +42,7 @@ public:
 
         void Free(void *Pointer) {
 		int sz = getSize(Pointer);
-		char *ptr = getAllocatedObjectStart(Pointer, sz); //sum of sz and header (size value + occupied mark)
+		char *ptr = getAllocObjStart(Pointer, sz); //sum of sz and header (size value + occupied mark)
 		while(ptr != ((char *)Pointer + sz)) {
 			*ptr = '\0';
 			ptr++;
