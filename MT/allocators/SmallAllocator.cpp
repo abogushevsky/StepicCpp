@@ -34,20 +34,15 @@ public:
 	};
 
 	void *ReAlloc(void *Pointer, unsigned int Size) {
+		void *newAlloc = Alloc(Size);
+		if (!newAlloc) return NULL;
+
 		int sz = getSize(Pointer);
-		if (offset + sizeof(int) + 1 + sz >= SZ) return NULL;
-		char *start = getAllocObjStart(Pointer, sz);
-		//TODO: Move header, size & data to the current offset position		
-		//TODO: Free current allocated area
-		char *end = start + sz;
-		char *target = Memory + offset;
-		while (start != end) {
-			*target = *start;
-			target++;
-			start++;
-			offset++;
+		for (int i = 0; i < sz; i++) {
+			((char *)newAlloc)[i] = ((char *)Pointer)[i];
 		}
-		return (void *)(target - sz - sizeof(int) - 1); //temp
+		Free(Pointer);
+		return newAlloc;
 	};
 
 	void Free(void *Pointer) {
@@ -71,5 +66,11 @@ int main(int argc, char **argv) {
 	long *li = (long *) sa.ReAlloc(i, sizeof(long));
 	std::cout << "Value at re-allocated area: " << *li << std::endl;
 
+	int *i2 = (int *) sa.Alloc(sizeof(int));
+	*i2 = 505;
+	std::cout << "i2 = " << *i2 << std::endl;
+
 	sa.Free(i);
+	sa.Free(i2);
+	sa.Free(li);
 }
