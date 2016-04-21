@@ -37,7 +37,7 @@ public:
 		if (!newAlloc) return NULL;
 
 		int sz = getSize(Pointer);
-		for (int i = 0; i < sz; i++) {
+		for (int i = 0; i < Size; i++) {
 			((char *)newAlloc)[i] = ((char *)Pointer)[i];
 		}
 		Free(Pointer);
