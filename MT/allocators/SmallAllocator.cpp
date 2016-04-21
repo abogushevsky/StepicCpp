@@ -79,21 +79,4 @@ int main(int argc, char **argv) {
 	for(unsigned int i = 0; i < 10; i++) if(A2_P2[i] != -1) std::cout << "ERROR 7" << std::endl;
 	A2.Free(A2_P1);
 	A2.Free(A2_P2);
-
-	/*SmallAllocator sa;
-	int *i = (int *) sa.Alloc(sizeof(int));
-	std::cout << "After Alloc" << std::endl;
-	*i = 4200012;
-	std::cout << "Value at allocated area: " << *i << std::endl;
-
-	long *li = (long *) sa.ReAlloc(i, sizeof(long));
-	std::cout << "Value at re-allocated area: " << *li << std::endl;
-
-	int *i2 = (int *) sa.Alloc(sizeof(int));
-	*i2 = 505;
-	std::cout << "i2 = " << *i2 << std::endl;
-
-	sa.Free(i);
-	sa.Free(i2);
-	sa.Free(li);*/
 }
