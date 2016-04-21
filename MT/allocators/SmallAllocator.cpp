@@ -67,5 +67,9 @@ int main(int argc, char **argv) {
 	std::cout << "After Alloc" << std::endl;
 	*i = 4200012;
 	std::cout << "Value at allocated area: " << *i << std::endl;
+
+	long *li = (long *) sa.ReAlloc(i, sizeof(long));
+	std::cout << "Value at re-allocated area: " << *li << std::endl;
+
 	sa.Free(i);
 }
