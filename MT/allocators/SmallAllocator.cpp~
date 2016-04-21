@@ -33,7 +33,6 @@ public:
 	};
 
 	void *ReAlloc(void *Pointer, unsigned int Size) {
-	  //TODO: ReAlloc failing 7th test
 		void *newAlloc = Alloc(Size);
 		if (!newAlloc) return NULL;
 
