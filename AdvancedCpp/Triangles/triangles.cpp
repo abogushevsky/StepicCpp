@@ -26,13 +26,14 @@ ull_int getSequentionalNumberOfTriangleNumber(ull_int triangleNumber) {
 }
 
 int main(int argc, char **argv) {	
-	ull_int triangleNumber = 0;
-
-	while (triangleNumber != -1) {
-		printf("Enter a triangle number: ");
-		scanf("%llu", &triangleNumber);
-		printf("Trinangle number is: %llu \r\n\r\n", getSequentionalNumberOfTriangleNumber(triangleNumber));
+	long double triangleNumber = 0;
+	scanf("%Lf", &triangleNumber);
+	ull_int roundedNumber = llround(triangleNumber);
+	if (triangleNumber - roundedNumber != 0) {
+		printf("%d", 0);
+		return 0;
 	}
+	printf("%llu", getSequentionalNumberOfTriangleNumber(roundedNumber));
 
 	return 0;
 }
